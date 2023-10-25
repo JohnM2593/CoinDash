@@ -1,0 +1,167 @@
+[gd_scene load_steps=23 format=3 uid="uid://pojak565dcxv"]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_w1dw2"]
+[ext_resource type="Script" path="res://scripts/Coin.gd" id="2_svnr0"]
+[ext_resource type="Texture2D" uid="uid://biib3c1orq1w3" path="res://assets/coin/coin-frame-1.png" id="3_m3qva"]
+[ext_resource type="Texture2D" uid="uid://ct8c1myhpooth" path="res://assets/coin/coin-frame-2.png" id="4_0n6dp"]
+[ext_resource type="Texture2D" uid="uid://5dppp72bn2ls" path="res://assets/coin/coin-frame-3.png" id="5_llduj"]
+[ext_resource type="Texture2D" uid="uid://cuqx6hbnq2p50" path="res://assets/coin/coin-frame-4.png" id="6_t37ib"]
+[ext_resource type="Texture2D" uid="uid://d2enw4i173cyt" path="res://assets/coin/coin-frame-5.png" id="7_5myhd"]
+[ext_resource type="Texture2D" uid="uid://dsjbtifafrmx0" path="res://assets/coin/coin-frame-6.png" id="8_dax07"]
+[ext_resource type="Texture2D" uid="uid://dpbudd8y4c8fp" path="res://assets/coin/coin-frame-7.png" id="9_kftje"]
+[ext_resource type="Texture2D" uid="uid://65d6stolxutp" path="res://assets/coin/coin-frame-8.png" id="10_wy6rx"]
+[ext_resource type="Texture2D" uid="uid://botmqx3dd3e3x" path="res://assets/coin/coin-frame-9.png" id="11_n80od"]
+[ext_resource type="Texture2D" uid="uid://8r5frwf7tysd" path="res://assets/coin/coin-frame-10.png" id="12_uwoi3"]
+[ext_resource type="Texture2D" uid="uid://c4njes60fi54y" path="res://assets/coin/coin-frame-11.png" id="13_2pruh"]
+[ext_resource type="Texture2D" uid="uid://dk4lwn0xvlpyo" path="res://assets/grass.png" id="14_oji61"]
+[ext_resource type="PackedScene" uid="uid://bevg4dkfvvcnc" path="res://nodes/Player.tscn" id="15_lvvwh"]
+[ext_resource type="FontFile" uid="uid://d1j5vgniw5tf4" path="res://assets/Kenney Bold.ttf" id="16_606vk"]
+[ext_resource type="Script" path="res://scripts/Hud.gd" id="16_gpslx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_av1yh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_m3qva")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0n6dp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_llduj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_t37ib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5myhd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_dax07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kftje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_wy6rx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_n80od")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_uwoi3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_2pruh")
+}],
+"loop": true,
+"name": &"shine",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gkn2g"]
+radius = 20.0
+
+[sub_resource type="PackedScene" id="PackedScene_far3m"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("coin", "script", "metadata/_edit_group_", "coins", "Area2D", "AnimatedSprite2D", "scale", "sprite_frames", "animation", "CollisionShape2D", "shape"),
+"node_count": 3,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 4, 0, -1, 2, 1, 0, 2, 1, 1, 3, 0, 0, 5, 5, -1, 3, 6, 2, 7, 3, 8, 4, 0, 0, 0, 9, 9, -1, 1, 10, 5, 0),
+"variants": [ExtResource("2_svnr0"), true, Vector2(0.4, 0.4), SubResource("SpriteFrames_av1yh"), &"shine", SubResource("CircleShape2D_gkn2g")],
+"version": 3
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_47nrb"]
+font = ExtResource("16_606vk")
+font_size = 48
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="GDScript" id="GDScript_w7ayh"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_w1dw2")
+coin_scene = SubResource("PackedScene_far3m")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 480.0
+offset_bottom = 720.0
+texture = ExtResource("14_oji61")
+stretch_mode = 1
+
+[node name="GameTimer" type="Timer" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("15_lvvwh")]
+
+[node name="Hud" type="CanvasLayer" parent="."]
+script = ExtResource("16_gpslx")
+
+[node name="Message" type="Label" parent="Hud"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+text = "Coin Dash!"
+label_settings = SubResource("LabelSettings_47nrb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_right = 240.0
+offset_bottom = 95.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="Score" type="Label" parent="Hud/MarginContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_47nrb")
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="Hud/MarginContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_47nrb")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="Hud"]
+wait_time = 2.0
+one_shot = true
+script = SubResource("GDScript_w7ayh")
+
+[node name="StartButton" type="Button" parent="Hud"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = 190.0
+offset_right = 88.0
+offset_bottom = 254.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("16_606vk")
+text = "Start"
+
+[connection signal="start_game" from="Hud" to="." method="_on_hud_start_game"]

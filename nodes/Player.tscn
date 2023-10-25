@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bevg4dkfvvcnc"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_4flwk"]
+[ext_resource type="SpriteFrames" uid="uid://de5uh63ipcigh" path="res://animations/Player.tres" id="2_sqslp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b7sd1"]
+size = Vector2(18, 22)
+
+[node name="Player" type="Area2D" groups=["player"]]
+texture_filter = 1
+scale = Vector2(2, 2)
+script = ExtResource("1_4flwk")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_sqslp")
+animation = &"run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 5)
+shape = SubResource("RectangleShape2D_b7sd1")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
